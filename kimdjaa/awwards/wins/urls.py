@@ -4,8 +4,8 @@ from .import views
 
 #urls
 urlpatterns = [
-    path('',views.loginPage, name="login"),
-    path('register/',views.registerPage, name="register"),
+    # path('',views.login, name="login"),
+    # path('register/',views.registerPage, name="register"),
     path('awwards/', views.awwards, name='awwards'),
-    path('profile/', views.profile, name='profile'),
+    # path('profile/', views.profile, name='profile'),
 ]
