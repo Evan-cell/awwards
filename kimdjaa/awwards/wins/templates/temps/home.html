@@ -40,52 +40,37 @@
   </div> <br>
   <hr>
   <h1 class="text-center">PROJECTS</h1>
+  
   <div class="container">
+    
       <div class="row">
-          <div class="col-md-6 p-2">
-              <div class="card">
-                  <div class="card-body">
-                      <img src="https://media.istockphoto.com/photos/celebrating-young-man-with-mobile-phone-winning-prize-and-showered-picture-id1294588803?b=1&k=20&m=1294588803&s=170667a&w=0&h=kMme_5SkyHFeDuTwGit9pXnJyjrmDrZ8GHDWxRn_wIY=" alt="">
-                      <h2>Project name</h2>
-                      <p>Description</p>
+          <div class="col-md-9 p-4">
+            {% for project in projects %}
+              
+                
+                  <div class="card card-body">
+                    
+                    <p><b>By:</b>{{project.project_owner.username}}</p>
+                      <img class="image-fluid" src="{{project.screenshot.url}}" alt="">
+                      <h2>{{project.name}}</h2>
+                      <p>{{project.description|truncatechars:15}}</p>
+                      <p><b>Posted on:</b>{{project.date_added}}</p>
                       <h6>Tech used</h6>
                       <div class="">
                         <button class="btn btn-success p-2">project link</button>
-                        <button class="btn btn-warning p-2 ml-5">Rate project</button>
+                        <button class="btn btn-warning p-2 ml-5"><a href="{% url 'rate' project.id %}" style="text-decoration:none;color:white;"><i class="fa fa-star">Rate project</i></a></button>
                           </div>
+                          
                   </div>
-              </div>
+                  
+              
+              {% endfor %}
+              
           </div>
-          <div class="col-md-6 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <img src="https://media.istockphoto.com/photos/celebrating-young-man-with-mobile-phone-winning-prize-and-showered-picture-id1294588803?b=1&k=20&m=1294588803&s=170667a&w=0&h=kMme_5SkyHFeDuTwGit9pXnJyjrmDrZ8GHDWxRn_wIY=" alt="">
-                    <h2>Project name</h2>
-                      <p>Description</p>
-                      <h6>Tech used</h6>
-                      <div class="">
-                    <button class="btn btn-success p-2">project link</button>
-                    <button class="btn btn-warning p-2 ml-5">Rate project</button>
-                      </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 p-2">
-            <div class="card">
-                <div class="card-body">
-                    <img src="https://media.istockphoto.com/photos/celebrating-young-man-with-mobile-phone-winning-prize-and-showered-picture-id1294588803?b=1&k=20&m=1294588803&s=170667a&w=0&h=kMme_5SkyHFeDuTwGit9pXnJyjrmDrZ8GHDWxRn_wIY=" alt="">
-                    <h2>Project name</h2>
-                      <p>Description</p>
-                      <h6>Tech used</h6>
-                      <div class="">
-                        <button class="btn btn-success p-2">project link</button>
-                        <button class="btn btn-warning p-2 ml-5">Rate project</button>
-                          </div>
-                </div>
-            </div>
-        </div>
       </div>
+      
   </div>
+  
   <!-- Remove the container if you want to extend the Footer to full width. -->
 <div class="container my-5">
 

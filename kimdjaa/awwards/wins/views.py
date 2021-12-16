@@ -14,7 +14,7 @@ def home(request):
   
   projects = Projects.objects.all() #obtaining all posted projects
 
-  return render(request,'awwards.html',{"projects":projects})
+  return render(request,'temps/home.html',{"projects":projects})
 
 def profile(request): 
   '''Function rendering a logged in user's profile page'''
