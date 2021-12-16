@@ -21,6 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-vwt&u4phd$g7(auoe@--&uxisdt7n2ce&7n=0@mjv%$-#1l&cs'
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config( 
+  cloud_name = "moringa-chit-fund-private-limited", 
+  api_key = "177778488814987", 
+  api_secret = "_7SSmn6ASgdrXTjtRRIyT8gagEY" 
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
