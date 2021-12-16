@@ -57,7 +57,7 @@
                       <p><b>Posted on:</b>{{project.date_added}}</p>
                       <h6>Tech used</h6>
                       <div class="">
-                        <button class="btn btn-success p-2">project link</button>
+                        <button class="btn btn-success p-2"><a href="{{project.live_link}}" style="text-decoration:none;color:white;"><i class="fa fa-star">Project link</i></a></button>
                         <button class="btn btn-warning p-2 ml-5"><a href="{% url 'rate' project.id %}" style="text-decoration:none;color:white;"><i class="fa fa-star">Rate project</i></a></button>
                           </div>
                           

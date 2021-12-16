@@ -1,6 +1,7 @@
 from django import forms
 from .models import Profile,Projects,Ratings,RATE_CHOICES
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 #Profile form
 class ProfileUpdateForm(forms.ModelForm): 
@@ -30,3 +31,7 @@ class ProjectRatingForm(forms.ModelForm):
   class Meta: 
     model = Ratings
     fields = ('design_rate','usability_rate','content_rate','review') 
+class CreateUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['username', 'email', 'password1', 'password2']    

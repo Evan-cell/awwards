@@ -7,6 +7,8 @@ from .forms import ProfileUpdateForm,UserUpdateForm,ProjectAddForm,ProjectRating
 from .models import Profile,Projects, Ratings
 from.serializers import ProfileSerializer,ProjectsSerializer,RatingsSerializer
 from rest_framework import viewsets,permissions
+from wins.forms import CreateUserForm
+from django.contrib.auth import authenticate, login, logout
 
 #View functions
 def home(request): 
@@ -22,7 +24,7 @@ def profile(request):
   user_projects = Projects.objects.filter(project_owner=request.user).all()
   return render(request,'registration/profile.html',{"profile":profile,"user_projects":user_projects})
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def update_profile(request): 
   '''Function for user profile update'''
   profile = Profile.objects.filter(user=request.user).first()
@@ -46,7 +48,7 @@ def update_profile(request):
   }
   return render(request,'registration/update_profile.html',context)
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def post_project(request): 
   '''Function handling post project'''
   if request.method == 'POST': 
@@ -68,9 +70,9 @@ def search_project(request):
     search_term = request.GET.get('project')
     found_project = Projects.objects.filter(name=search_term).first()
 
-  return render(request,'search_results.html',{"found_project":found_project})
+  return render(request,'temps/search_results.html',{"found_project":found_project})
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def rate_project(request,project_id): 
   '''Function for rating a project'''
   project = Projects.objects.get(id=project_id)
@@ -126,6 +128,39 @@ def project_details(request,project_id):
     "averageRating": averageRating,
   }
   return render(request,'projects/project_details.html',context)
+def registerPage(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account was created for ' + user)
+			
+            return redirect('login')
+    context = {'form': form}
+    return render(request, 'registration/registration_form.html', context)  
+def loginPage(request):
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		if request.method == 'POST':
+			username = request.POST.get('username')
+			password =request.POST.get('password')
+
+			user = authenticate(request, username=username, password=password)
+
+			if user is not None:
+				login(request, user)
+				return redirect('/')
+			else:
+				messages.info(request, 'Username OR password is incorrect')
+
+		context = {}
+		return render(request, 'registration/login.html', context) 
+def logout_view(request):
+    return render(request, 'registration/login.html')        
 
 #Profile Api view
 class ProfileView(viewsets.ModelViewSet): 
